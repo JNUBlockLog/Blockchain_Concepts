@@ -1,0 +1,22 @@
+OrderOrgs:
+
+  - Name: Orderer
+    Domain: logsystem.com
+    Specs:
+      - Hostname: orderer
+PeerOrgs:
+  - Name: RaspiOrg
+    Domain: raspi.logsystem.com
+    EnableNodeOUs: true
+    Template:
+      Count: 5
+    Users:
+      Count: 1
+  
+  - Name: VirtualOrg
+    Domain: vm.logsystem.com
+    EnableNodeOUs: true
+    Template:
+      Count: 5
+    Users:
+      Count: 3

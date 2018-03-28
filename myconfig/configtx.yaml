@@ -1,0 +1,91 @@
+Profiles:
+
+    OrdererGenesis:
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Consortiums:
+            LogConsortium:
+                Organizations:
+                    - *RaspiOrg
+                    - *VirtualOrg
+
+    LogChannel:
+        Consortium: LogConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *RaspiOrg
+                - *VirtualOrg
+            Capabilities:
+                <<: *ApplicationCapabilites
+
+Organizations:
+
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: crypto-config/ordererOrganizations/logsystem.com/msp
+
+    - &RaspiOrg
+        Name: RaspiOrg
+        ID: RaspiMSP 
+        MSPDir: crypto-config/peerOrganizations/raspi.logsystem.com/msp
+        AnchorPeers:
+            - Host: peer0.raspi.logsystem.com
+              Port: 7051
+
+    - &VirtualOrg
+        Name: VirtualOrg
+        ID: VirtualMSP
+        MSPDir: crypto-config/peerOrganizations/vm.logsystem.com/msp
+        AnchorPeers:
+            - Host: peer0.vm.logsystem.com
+              Port: 7051
+
+Orderer: &OrdererDefaults
+
+    OrdererType: solo
+    Addresses:
+        - orderer.logsystem.com:7050
+
+    BatchTimeout: 2s
+    BatchSize:
+
+        # Max Message Count: The maximum number of messages to permit in a batch
+        MaxMessageCount: 10
+
+        # Absolute Max Bytes: The absolute maximum number of bytes allowed for
+        # the serialized messages in a batch.
+        AbsoluteMaxBytes: 99 MB
+
+        # Preferred Max Bytes: The preferred maximum number of bytes allowed for
+        # the serialized messages in a batch. A message larger than the preferred
+        # max bytes will result in a batch larger than preferred max bytes.
+        PreferredMaxBytes: 512 KB
+        
+    Kafka:
+        Brokers:
+            - 127.0.0.1:9092
+
+    Organizations:
+
+Application: &ApplicationDefaults
+
+    Organizations:
+
+Capabilities:
+
+    Global: &ChannelCapabilities
+        V1_1: true
+
+    Orderer: &OrdererCapabilities
+        V1_1: true
+
+    Application: &ApplicationCapabilites
+        V1_1: true
