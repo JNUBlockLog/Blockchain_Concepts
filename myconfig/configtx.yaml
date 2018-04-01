@@ -28,12 +28,12 @@ Profiles:
 Organizations:
 
     - &OrdererOrg
-        Name: OrdererOrg
+        Name: OrdererOrgMSP
         ID: OrdererMSP
         MSPDir: crypto-config/ordererOrganizations/logsystem.com/msp
 
     - &RaspiOrg
-        Name: RaspiOrg
+        Name: RaspiOrgMSP
         ID: RaspiMSP 
         MSPDir: crypto-config/peerOrganizations/raspi.logsystem.com/msp
         AnchorPeers:
@@ -41,7 +41,7 @@ Organizations:
               Port: 7051
 
     - &VirtualOrg
-        Name: VirtualOrg
+        Name: VirtualOrgMSP
         ID: VirtualMSP
         MSPDir: crypto-config/peerOrganizations/vm.logsystem.com/msp
         AnchorPeers:

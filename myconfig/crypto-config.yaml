@@ -1,10 +1,12 @@
-OrderOrgs:
+OrdererOrgs:
 
   - Name: Orderer
     Domain: logsystem.com
     Specs:
       - Hostname: orderer
+
 PeerOrgs:
+
   - Name: RaspiOrg
     Domain: raspi.logsystem.com
     EnableNodeOUs: true
